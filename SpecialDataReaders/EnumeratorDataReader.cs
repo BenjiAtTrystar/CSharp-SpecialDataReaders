@@ -406,7 +406,10 @@ namespace Gerk.SpecialDataReaders
 				hasMoreToGo = hasMoreToGo && enumerator.MoveNext();
 			return hasMoreToGo;
 		}
-
+		/// <summary>
+		/// Dispose pattern implementation.
+		/// </summary>
+		/// <param name="disposing">true if called from Dispose, false if called from finalizer.</param>
 		protected virtual void Dispose(bool disposing)
 		{
 			if (!disposedValue)
