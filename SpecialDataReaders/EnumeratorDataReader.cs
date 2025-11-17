@@ -44,13 +44,14 @@ namespace Gerk.SpecialDataReaders
 		/// </list>
 		/// </summary>
 		protected Dictionary<int, (IEnumerator Enumerator, Func<object, object> ValueExtractor, string Name, string SqlType, Type CSharpType)> columns = new Dictionary<int, (IEnumerator, Func<object, object>, string, string, Type)>();
+		private bool disposedValue;
 
 		/// <summary>
 		/// Clears all data from this EnumeratorDataReader.
 		/// </summary>
 		protected virtual void Clear()
 		{
-			Dispose();
+			DisposeEnumerators();
 			columnNames = new Dictionary<string, int>();
 			enumerables = new Dictionary<IEnumerable, IEnumerator>();
 			enumerators = new HashSet<IEnumerator>();
@@ -58,7 +59,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <summary>
-		/// Goes through the columns and enumerators to make sure we are storing and iterating through enumerators that aren't being used in the output.
+		/// Goes through the columns and enumerators to make sure we aren't storing and iterating through enumerators that aren't being used in the output.
 		/// </summary>
 		public virtual void CleanExcessEnumerators()
 		{
@@ -329,20 +330,13 @@ namespace Gerk.SpecialDataReaders
 		/// <inheritdoc/>
 		public virtual int Depth => throw new NotImplementedException();
 		/// <inheritdoc/>
-		public virtual bool IsClosed => false;
+		public bool IsClosed { get; protected set; } = false;
 		/// <inheritdoc/>
 		public virtual int RecordsAffected => 0;
 		/// <inheritdoc/>
 		public virtual int FieldCount => columnNames.Count;
 		/// <inheritdoc/>
-		public virtual void Close() { }
-		/// <inheritdoc/>
-		public virtual void Dispose()
-		{
-			foreach (var item in enumerators)
-				if (item is IDisposable disposable)
-					disposable.Dispose();
-		}
+		public virtual void Close() => IsClosed = true;
 		/// <inheritdoc/>
 		public virtual bool GetBoolean(int i) => (bool)GetValue(i);
 		/// <inheritdoc/>
@@ -411,6 +405,42 @@ namespace Gerk.SpecialDataReaders
 			foreach (var enumerator in enumerators)
 				hasMoreToGo = hasMoreToGo && enumerator.MoveNext();
 			return hasMoreToGo;
+		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (!disposedValue)
+			{
+				if (disposing)
+				{
+					// TODO: dispose managed state (managed objects)
+					DisposeEnumerators();
+				}
+
+				// TODO: free unmanaged resources (unmanaged objects) and override finalizer
+				// TODO: set large fields to null
+				enumerables = null;
+				enumerators = null;
+				columnNames = null;
+				columns = null;
+
+				disposedValue = true;
+			}
+		}
+
+		private void DisposeEnumerators()
+		{
+			foreach (var item in enumerators)
+				if (item is IDisposable disposable)
+					disposable.Dispose();
+		}
+
+		/// <inheritdoc/>
+		public void Dispose()
+		{
+			// Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+			Dispose(disposing: true);
+			GC.SuppressFinalize(this);
 		}
 	}
 }

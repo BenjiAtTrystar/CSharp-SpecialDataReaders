@@ -25,7 +25,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public object this[int i]
+		public virtual object this[int i]
 		{
 			get
 			{
@@ -37,7 +37,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public object this[string name]
+		public virtual object this[string name]
 		{
 			get
 			{
@@ -49,7 +49,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public int Depth
+		public virtual int Depth
 		{
 			get
 			{
@@ -61,7 +61,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public bool IsClosed
+		public virtual bool IsClosed
 		{
 			get
 			{
@@ -73,7 +73,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public int RecordsAffected
+		public virtual int RecordsAffected
 		{
 			get
 			{
@@ -85,7 +85,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public int FieldCount
+		public virtual int FieldCount
 		{
 			get
 			{
@@ -97,21 +97,21 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public void Close()
+		public virtual void Close()
 		{
 			log("void Close()");
 			innerReader.Close();
 		}
 
 		/// <inheritdoc/>
-		public void Dispose()
+		public virtual void Dispose()
 		{
 			log("void Dispose()");
 			innerReader.Dispose();
 		}
 
 		/// <inheritdoc/>
-		public bool GetBoolean(int i)
+		public virtual bool GetBoolean(int i)
 		{
 			log($"bool GetBoolean - {nameof(i)}: {i}");
 			var output = innerReader.GetBoolean(i);
@@ -120,7 +120,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public byte GetByte(int i)
+		public virtual byte GetByte(int i)
 		{
 			log($"byte GetByte - {nameof(i)}: {i}");
 			var output = innerReader.GetByte(i);
@@ -129,7 +129,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public long GetBytes(int i, long fieldOffset, byte[] buffer, int bufferoffset, int length)
+		public virtual long GetBytes(int i, long fieldOffset, byte[] buffer, int bufferoffset, int length)
 		{
 			log($"long GetBytes - {nameof(i)}: {i}, {nameof(fieldOffset)}: {fieldOffset}, {nameof(buffer)}: {buffer}, {nameof(bufferoffset)}: {bufferoffset}, {nameof(length)}: {length}");
 			var output = innerReader.GetBytes(i, fieldOffset, buffer, bufferoffset, length);
@@ -138,7 +138,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public char GetChar(int i)
+		public virtual char GetChar(int i)
 		{
 			log($"char GetChar - {nameof(i)}: {i}");
 			var output = innerReader.GetChar(i);
@@ -147,7 +147,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public long GetChars(int i, long fieldoffset, char[] buffer, int bufferoffset, int length)
+		public virtual long GetChars(int i, long fieldoffset, char[] buffer, int bufferoffset, int length)
 		{
 			log($"long GetChars - {nameof(i)}: {i}, {nameof(fieldoffset)}: {fieldoffset}, {nameof(buffer)}: {buffer}, {nameof(bufferoffset)}: {bufferoffset}, {nameof(length)}: {length}");
 			var output = innerReader.GetChars(i, fieldoffset, buffer, bufferoffset, length);
@@ -156,7 +156,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public IDataReader GetData(int i)
+		public virtual IDataReader GetData(int i)
 		{
 			log($"IDataReader GetData - {nameof(i)}: {i}");
 			var output = innerReader.GetData(i);
@@ -165,7 +165,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public string GetDataTypeName(int i)
+		public virtual string GetDataTypeName(int i)
 		{
 			log($"string GetDataTypeName - {nameof(i)}: {i}");
 			var output = innerReader.GetDataTypeName(i);
@@ -174,7 +174,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public DateTime GetDateTime(int i)
+		public virtual DateTime GetDateTime(int i)
 		{
 			log($"DateTime GetDateTime - {nameof(i)}: {i}");
 			var output = innerReader.GetDateTime(i);
@@ -183,7 +183,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public decimal GetDecimal(int i)
+		public virtual decimal GetDecimal(int i)
 		{
 			log($"decimal GetDecimal - {nameof(i)}: {i}");
 			var output = innerReader.GetDecimal(i);
@@ -192,7 +192,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public double GetDouble(int i)
+		public virtual double GetDouble(int i)
 		{
 			log($"double GetDouble - {nameof(i)}: {i}");
 			var output = innerReader.GetDouble(i);
@@ -201,7 +201,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public Type GetFieldType(int i)
+		public virtual Type GetFieldType(int i)
 		{
 			log($"Type GetFieldType - {nameof(i)}: {i}");
 			var output = innerReader.GetFieldType(i);
@@ -210,7 +210,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public float GetFloat(int i)
+		public virtual float GetFloat(int i)
 		{
 			log($"float GetFloat - {nameof(i)}: {i}");
 			var output = innerReader.GetFloat(i);
@@ -219,7 +219,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public Guid GetGuid(int i)
+		public virtual Guid GetGuid(int i)
 		{
 			log($"Guid GetGuid - {nameof(i)}: {i}");
 			var output = innerReader.GetGuid(i);
@@ -228,7 +228,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public short GetInt16(int i)
+		public virtual short GetInt16(int i)
 		{
 			log($"short GetInt16 - {nameof(i)}: {i}");
 			var output = innerReader.GetInt16(i);
@@ -237,7 +237,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public int GetInt32(int i)
+		public virtual int GetInt32(int i)
 		{
 			log($"int GetInt32 - {nameof(i)}: {i}");
 			var output = innerReader.GetInt32(i);
@@ -246,7 +246,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public long GetInt64(int i)
+		public virtual long GetInt64(int i)
 		{
 			log($"long GetInt64 - {nameof(i)}: {i}");
 			var output = innerReader.GetInt64(i);
@@ -255,7 +255,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public string GetName(int i)
+		public virtual string GetName(int i)
 		{
 			log($"string GetName - {nameof(i)}: {i}");
 			var output = innerReader.GetName(i);
@@ -264,7 +264,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public int GetOrdinal(string name)
+		public virtual int GetOrdinal(string name)
 		{
 			log($"int GetOrdinal - {nameof(name)}: {name}");
 			var output = innerReader.GetOrdinal(name);
@@ -273,7 +273,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public DataTable GetSchemaTable()
+		public virtual DataTable GetSchemaTable()
 		{
 			log("DataTable GetSchemaTable()");
 			var output = innerReader.GetSchemaTable();
@@ -282,7 +282,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public string GetString(int i)
+		public virtual string GetString(int i)
 		{
 			log($"string GetString - {nameof(i)}: {i}");
 			var output = innerReader.GetString(i);
@@ -291,7 +291,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public object GetValue(int i)
+		public virtual object GetValue(int i)
 		{
 			log($"object GetValue - {nameof(i)}: {i}");
 			var output = innerReader.GetValue(i);
@@ -300,7 +300,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public int GetValues(object[] values)
+		public virtual int GetValues(object[] values)
 		{
 			log($"int GetValues - {nameof(values)}: {values}");
 			var output = innerReader.GetValues(values);
@@ -309,7 +309,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public bool IsDBNull(int i)
+		public virtual bool IsDBNull(int i)
 		{
 			log($"bool IsDBNull - {nameof(i)}: {i}");
 			var output = innerReader.IsDBNull(i);
@@ -318,7 +318,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public bool NextResult()
+		public virtual bool NextResult()
 		{
 			log("bool NextResult()");
 			var output = innerReader.NextResult();
@@ -327,7 +327,7 @@ namespace Gerk.SpecialDataReaders
 		}
 
 		/// <inheritdoc/>
-		public bool Read()
+		public virtual bool Read()
 		{
 			log("bool Read()");
 			var output = innerReader.Read();
